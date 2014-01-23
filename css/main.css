@@ -1,0 +1,38 @@
+body {
+	font-family: Cambria, Georgia, serif;
+	height: 100%;
+	background-color: #000;
+  color: #fff;
+}
+.main {
+	margin-top: 2%;
+	padding-top: 3%;
+	padding-bottom: 3%;
+	margin-left: 5%;
+	padding-left: 2%;
+}
+.screenshot {
+  margin-left: 32px;
+  float: left;
+}
+h1 {
+	font-size: 500%;
+	padding-bottom: 3%;
+}
+h2 {
+	font-size: 200%;
+  padding-bottom: 3%;
+}
+h3 {
+	font-size: 150%;
+	padding-bottom: .5%;
+}
+li {
+}
+a, a:hover, a:visited {
+  color: #f44;
+	text-decoration: underline;
+}
+.dev {
+	opacity: 0.4;
+}
