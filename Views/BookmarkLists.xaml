@@ -1,0 +1,81 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="NowReadable.Views.BookmarkLists"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:controls="clr-namespace:NowReadable.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait"  
+    Orientation="Portrait"
+    shell:SystemTray.Opacity="0"
+    shell:SystemTray.IsVisible="True">
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <phone:Pivot Title="NOW READABLE" TitleTemplate="{StaticResource PivotItemHeaderTemplate}" x:Name="BookmarkListsPivots" LoadingPivotItem="BookmarkListsPivots_LoadingPivotItem" LoadedPivotItem="BookmarkListsPivots_LoadedPivotItem">
+            <phone:PivotItem>
+                <phone:PivotItem.Header>
+                    <StackPanel>
+                        <TextBlock Text="reading list" Style="{StaticResource LargeText}" Width="Auto" />
+                        <TextBlock Text="recently added first" Name="ReadingListSortOrder" Style="{StaticResource SmallMediumText}" Margin="0" Visibility="Collapsed" />
+                    </StackPanel>
+                </phone:PivotItem.Header>
+                <ListBox Name="ReadingList" ItemTemplate="{StaticResource ListBoxItemTemplate}" />
+            </phone:PivotItem>
+            
+            <phone:PivotItem>
+                <phone:PivotItem.Header>
+                    <StackPanel>
+                        <TextBlock Text="favorites" Style="{StaticResource LargeText}" Width="Auto" />
+                        <TextBlock Text="recently favorited first" Name="FavoritesSortOrder" Style="{StaticResource SmallMediumText}" Margin="0" Visibility="Collapsed" />
+                    </StackPanel>
+                </phone:PivotItem.Header>
+                <ListBox Name="Favorites" ItemTemplate="{StaticResource ListBoxItemTemplate}" />
+            </phone:PivotItem>
+
+            <phone:PivotItem>
+                <phone:PivotItem.Header>
+                    <StackPanel>
+                        <TextBlock Text="archive" Style="{StaticResource LargeText}" Width="Auto" />
+                        <TextBlock Text="recently archived first" Name="ArchiveSortOrder" Style="{StaticResource SmallMediumText}" Margin="0" Visibility="Collapsed" />
+                    </StackPanel>
+                </phone:PivotItem.Header>
+                <ListBox Name="Archive" ItemTemplate="{StaticResource ListBoxItemTemplate}" />
+            </phone:PivotItem>
+        </phone:Pivot>
+    </Grid>
+    
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar Mode="Minimized" x:Name="AppBar">
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="sort newest first" Click="Sort_Newest" />
+                <shell:ApplicationBarMenuItem Text="sort oldest first" Click="Sort_Oldest" />
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+
+    <toolkit:TransitionService.NavigationInTransition>
+        <toolkit:NavigationInTransition>
+            <toolkit:NavigationInTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardIn"/>
+            </toolkit:NavigationInTransition.Backward>
+            <toolkit:NavigationInTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardIn"/>
+            </toolkit:NavigationInTransition.Forward>
+        </toolkit:NavigationInTransition>
+    </toolkit:TransitionService.NavigationInTransition>
+    <toolkit:TransitionService.NavigationOutTransition>
+        <toolkit:NavigationOutTransition>
+            <toolkit:NavigationOutTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardOut"/>
+            </toolkit:NavigationOutTransition.Backward>
+            <toolkit:NavigationOutTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardOut"/>
+            </toolkit:NavigationOutTransition.Forward>
+        </toolkit:NavigationOutTransition>
+    </toolkit:TransitionService.NavigationOutTransition>
+</phone:PhoneApplicationPage>

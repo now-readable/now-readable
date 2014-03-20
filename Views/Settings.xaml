@@ -1,0 +1,85 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="NowReadable.Views.Settings"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:controls="clr-namespace:NowReadable.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait"  
+    Orientation="Portrait"
+    shell:SystemTray.Opacity="0"
+    shell:SystemTray.IsVisible="True">
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <phone:Pivot Title="NOW READABLE" TitleTemplate="{StaticResource PivotItemHeaderTemplate}">
+            <phone:PivotItem>
+                <phone:PivotItem.Header>
+                    <TextBlock Text="settings" Style="{StaticResource LargeText}" Width="Auto" />
+                </phone:PivotItem.Header>
+
+                <StackPanel>
+                    <TextBlock Text="font" Style="{StaticResource MediumText}" />
+                    <toolkit:ListPicker x:Name="TypefaceSelector" ItemsSource="{Binding Typefaces}" SelectedIndex="{Binding CurrentTypeface, Mode=TwoWay}"  FontFamily="Cambria" FontSize="{StaticResource PhoneFontSizeLarge}" Margin="26,-12" >
+                        <toolkit:ListPicker.FullModeItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" FontFamily="Cambria" FontSize="{StaticResource PhoneFontSizeExtraLarge}" Margin="12" />
+                            </DataTemplate>
+                        </toolkit:ListPicker.FullModeItemTemplate>
+                    </toolkit:ListPicker>
+
+                    <TextBlock Text="size" Style="{StaticResource MediumText}" Margin="26" />
+                    <Slider Value="{Binding CurrentFontSize, Mode=TwoWay}" Margin="16,-24,16,-10" Minimum="10" Maximum="50" />
+
+                    <TextBlock Text="colors" Style="{StaticResource MediumText}" Margin="26,0" />
+                    <ListBox ItemsSource="{Binding Themes}" SelectedIndex="{Binding CurrentTheme, Mode=TwoWay}" Style="{StaticResource ThemeSelectorStyle}" ScrollViewer.VerticalScrollBarVisibility="Visible" />
+                    
+                    <toolkit:ToggleSwitch FontFamily="Cambria" FontSize="{StaticResource PhoneFontSizeExtraLarge}" Margin="26,-10,26,-10" Content="Auto-Sync" IsChecked="{Binding AutoSync, Mode=TwoWay}" />
+                    
+                    <Button Content="save" Command="{Binding SaveCommand}" Style="{StaticResource LargeButtonStyle}" HorizontalAlignment="Center" Margin="10,-5" />
+                </StackPanel>
+            </phone:PivotItem>
+
+            <phone:PivotItem>
+                <phone:PivotItem.Header>
+                    <TextBlock Text="about" Style="{StaticResource LargeText}" Width="Auto" />
+                </phone:PivotItem.Header>
+
+                <StackPanel>
+                    <TextBlock Text="now readable 1.6" Style="{StaticResource MediumText}" Margin="24,0,0,0" />
+                    
+                    <TextBlock Text="by chuma nnaji" Style="{StaticResource MediumText}" Margin="24,24,0,0" />
+                    <TextBlock Text="http://www.chumannaji.com" Style="{StaticResource SmallMediumText}" Margin="24,0,0,15" Tap="OpenWebsite_Click" />
+                    
+                    <TextBlock Text="review this app" Style="{StaticResource MediumText}" Margin="24,24,0,15" Tap="ReviewApp_Click" />
+                    <TextBlock Text="send feedback" Style="{StaticResource MediumText}" Margin="24,24,0,0" Tap="SendFeedback_Click" />
+                </StackPanel>
+            </phone:PivotItem>
+        </phone:Pivot>
+    </Grid>
+
+    <toolkit:TransitionService.NavigationInTransition>
+        <toolkit:NavigationInTransition>
+            <toolkit:NavigationInTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardIn"/>
+            </toolkit:NavigationInTransition.Backward>
+            <toolkit:NavigationInTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardIn"/>
+            </toolkit:NavigationInTransition.Forward>
+        </toolkit:NavigationInTransition>
+    </toolkit:TransitionService.NavigationInTransition>
+    <toolkit:TransitionService.NavigationOutTransition>
+        <toolkit:NavigationOutTransition>
+            <toolkit:NavigationOutTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardOut"/>
+            </toolkit:NavigationOutTransition.Backward>
+            <toolkit:NavigationOutTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardOut"/>
+            </toolkit:NavigationOutTransition.Forward>
+        </toolkit:NavigationOutTransition>
+    </toolkit:TransitionService.NavigationOutTransition>
+</phone:PhoneApplicationPage>
