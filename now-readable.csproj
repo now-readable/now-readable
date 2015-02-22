@@ -101,7 +101,6 @@
     <Compile Include="Utilities\Extensions.cs" />
     <Compile Include="Utilities\LocalizedStrings.cs" />
     <Compile Include="ViewModels\ArticleViewModel.cs" />
-    <Compile Include="ViewModels\MainViewModelPartial.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="Views\Article.xaml.cs">
@@ -185,7 +184,6 @@
     <Content Include="Assets\Tiles\MediumTile.png" />
     <Content Include="Assets\Tiles\SmallIconImage.png" />
     <Content Include="Assets\Tiles\SmallTile.png" />
-    <Content Include="README_FIRST.txt" />
     <Content Include="Toolkit.Content\ApplicationBar.Add.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
