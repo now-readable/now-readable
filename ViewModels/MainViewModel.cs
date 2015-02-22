@@ -18,41 +18,6 @@ namespace NowReadable.ViewModels
 {
     public partial class MainViewModel : INotifyPropertyChanged
     {
-        partial void InitSecretProperties();
-
-        public MainViewModel()
-        {
-            ProgressVisible = false;
-            DataStorage = new DataStorage();
-            BookmarkList = new BookmarkList();
-
-            ReadabilityClient = new ReadabilityApi.ReadabilityClient(ApiBaseUrl, ConsumerKey, ConsumerSecret);
-
-            Observable.Buffer(Observable.FromEventPattern(this, "ReadingListUpdated").Throttle(TimeSpan.FromSeconds(1)), 1)//e => ReadingListUpdated += e, e => ReadingListUpdated -= e), 1)
-                .Subscribe(e =>
-                {
-                    ShellTile tile = ShellTile.ActiveTiles.First();
-                    if (tile != null && ReadingList.Count > 0) //Do nothing if there's no tile pinned or there are no items in the list.
-                    {
-                        var firstArticleInReadingList = ReadingList.First().Article;
-
-                        IconicTileData TileData = new IconicTileData()
-                        {
-                            Title = "Now Readable",
-                            Count = ReadingListCount,
-                            WideContent1 = firstArticleInReadingList.Title,
-                            WideContent2 = firstArticleInReadingList.Excerpt.Substring(0, 100),
-                            WideContent3 = firstArticleInReadingList.Author,
-                            SmallIconImage = new Uri("Assets/Tiles/SmallIconImage.png", UriKind.Relative),
-                            IconImage = new Uri("Assets/Tiles/IconImage.png", UriKind.Relative),
-                            BackgroundColor = System.Windows.Media.Colors.Red
-                        };
-
-                        tile.Update(TileData);
-                    }
-                });
-        }
-
         #region ViewModel Properties
         /// <summary>
         /// True when the MainViewModel has finished loading Data.
@@ -551,6 +516,48 @@ namespace NowReadable.ViewModels
             }
         }
         #endregion
+
+        /// <summary>
+        /// Initialize the ApiKeys. This is done in a seperate partial class that is removed from SourceControl.
+        /// </summary>
+        partial void InitSecretProperties();
+
+        public MainViewModel()
+        {
+            ApiBaseUrl = "";
+            ConsumerKey = "";
+            ConsumerSecret = "";
+
+            ProgressVisible = false;
+            DataStorage = new DataStorage();
+            BookmarkList = new BookmarkList();
+
+            ReadabilityClient = new ReadabilityApi.ReadabilityClient(ApiBaseUrl, ConsumerKey, ConsumerSecret);
+
+            Observable.Buffer(Observable.FromEventPattern(this, "ReadingListUpdated").Throttle(TimeSpan.FromSeconds(1)), 1)
+                .Subscribe(e =>
+                {
+                    ShellTile tile = ShellTile.ActiveTiles.First();
+                    if (tile != null && ReadingList.Count > 0) //Do nothing if there's no tile pinned or there are no items in the list.
+                    {
+                        var firstArticleInReadingList = ReadingList.First().Article;
+
+                        IconicTileData TileData = new IconicTileData()
+                        {
+                            Title = "Now Readable",
+                            Count = ReadingListCount,
+                            WideContent1 = firstArticleInReadingList.Title,
+                            WideContent2 = firstArticleInReadingList.Excerpt.Substring(0, 100),
+                            WideContent3 = firstArticleInReadingList.Author,
+                            SmallIconImage = new Uri("Assets/Tiles/SmallIconImage.png", UriKind.Relative),
+                            IconImage = new Uri("Assets/Tiles/IconImage.png", UriKind.Relative),
+                            BackgroundColor = System.Windows.Media.Colors.Red
+                        };
+
+                        tile.Update(TileData);
+                    }
+                });
+        }
 
         /// <summary>
         /// Complete the authentication process if we're redirected by the oauth callback.
